@@ -68,4 +68,4 @@ end
 @inline prepare_sign_and_exponent_fields(x::T) where T<:Unsigned = (x & sign_and_exponent_fields_mask_lsbs(T)) << exponent_field_offset(T)
 @inline prepare_exponent_and_significand_fields(x::T) where T<:Unsigned = (x & exponent_and_significand_fields_mask_lsbs(T)) << exponent_and_significand_fields_offset(T)
 @inline prepare_biased_exponent_field(x::T) where T<:Unsigned = prepare_exponent_field(x)
-@inline prepare_unbiased_exponent_field(x::T) where T<:Unsigned = prepare_exponent_field(x - exponent_bias(T))
+@inline prepare_unbiased_exponent_field(x::T) where T<:Unsigned = prepare_exponent_field(x + exponent_bias(T))
