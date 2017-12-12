@@ -50,4 +50,3 @@ include("convert.jl")
 include("fields.jl")
 
 end # module LowLevelFloatFunctions
-U
