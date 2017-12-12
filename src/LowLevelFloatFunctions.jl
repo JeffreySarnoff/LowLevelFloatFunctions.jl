@@ -2,7 +2,7 @@ module LowLevelFloatFunctions
 
 
 export bitwidth, signbit, sign, precision, exponent, significand,
-       exponent_bits, significand_bits,
+       sign_bits, exponent_bits, significand_bits,
        exponent_max, exponent_min, exponent_field_max,
        sign_field, exponent_field, signficand_field,
        sign_and_exponent_fields, exponent_and_significand_fields
@@ -10,6 +10,7 @@ export bitwidth, signbit, sign, precision, exponent, significand,
 import Base.Math: precision, significand_bits, exponent_bits
 
 const SysFloat = Union{Float64, Float32, Float16}
+const SysUnsigned = Union{UInt64, UInt32, UInt16}
 
 # extend coverage to Unsigneds for field processing functions
 
@@ -20,7 +21,9 @@ for F in (:precision, :significand_bits, :exponent_bits)
         end
     end
 end
-              
+
+sign_bits(::Type{T}) where T<:Union(SysFloat, SysUnsigned} = 1
+
 @inline bitwidth(::Type{T}) where T = sizeof(T) * 8
 
 @inline exponent_max(::Type{Float16})  =     15
