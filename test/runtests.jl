@@ -13,7 +13,7 @@ sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Float16(2
     @test exponent(-sqrt2₆₄) == 0
     @test exponent(sqrt2₃₂) == 0
     @test exponent(-sqrt2₁₆) == 0
-    @test significand(-sqrt2₆₄) === 1.4142135623730951
+    @test significand(-sqrt2₆₄) === -1.4142135623730951
     @test significand(sqrt2₃₂) === 1.4142135f0
     @test significand(-sqrt2₁₆) === Float16(-1.414)
 end
