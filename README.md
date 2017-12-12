@@ -27,7 +27,9 @@ bitwidth, hexstring
 These values are used throughout.
 
 ```julia
-sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Float16(2.0));
+sqrt2₆₄ = sqrt(2.0)
+sqrt2₃₂ = sqrt(2.0f0)
+sqrt2₁₆ = sqrt(Float16(2.0))
 
 max16₆₄ = Float64(realmax(Float16))
 max16₃₂ = Float32(realmax(Float16))
@@ -52,10 +54,13 @@ julia> sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Fl
 
 julia> sign_field(-sqrt2₆₄), sign_field(sqrt2₃₂), sign_field(-sqrt2₁₆)
 (0x0000000000000001, 0x00000000, 0x0001)
-julia>  exponent_field(-sqrt2₆₄), exponent_field(sqrt2₃₂), exponent_field(-sqrt2₁₆)
+
+julia> exponent_field(-sqrt2₆₄), exponent_field(sqrt2₃₂), exponent_field(-sqrt2₁₆)
 (0x00000000000003ff, 0x0000007f, 0x000f)
+
 julia> significand_field(sqrt2₆₄), significand_field(sqrt2₃₂), significand_field(sqrt2₁₆)
-(0x0006a09e667f3bcd, 0x003504f3, Float16(-1.414))
+(0x0006a09e667f3bcd, 0x003504f3, 0x01a8)
+
 
 julia> sign_field(-sqrt2₆₄, 0%UInt64)
 
