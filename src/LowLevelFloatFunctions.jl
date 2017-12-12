@@ -10,7 +10,7 @@ import Base.Math: precision, significand_bits, exponent_bits
 
 const SysFloat = Union{Float64, Float32, Float16}
 
-@inline bitwidth(::Type{T}) where T<:SysFloat = sizeof(T) * 8
+@inline bitwidth(::Type{T}) where T = sizeof(T) * 8
 
 @inline exponent_max(::Type{Float16})  =     15
 @inline exponent_max(::Type{Float32})  =    127
