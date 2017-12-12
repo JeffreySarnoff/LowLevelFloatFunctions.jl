@@ -9,9 +9,9 @@
 @inline Base.convert(::Type{SysFloat}, ::Type{UInt32}) = Float32
 @inline Base.convert(::Type{SysFloat}, ::Type{UInt64}) = Float64
 
-@inline Base.convert(::Type{Unsigned}, x::Float16) = reinterpret(UInt16, x)
-@inline Base.convert(::Type{Unsigned}, x::Float32) = reinterpret(UInt32, x)
-@inline Base.convert(::Type{Unsigned}, x::Float64) = reinterpret(UInt64, x)
+@inline Base.convert(::Type{Unsigned}, x::Float16) = reinterpret(Unsigned, x)
+@inline Base.convert(::Type{Unsigned}, x::Float32) = reinterpret(Unsigned, x)
+@inline Base.convert(::Type{Unsigned}, x::Float64) = reinterpret(Unsigned, x)
 
 @inline Base.convert(::Type{SysFloat}, x::UInt16) = reinterpret(Float16, x)
 @inline Base.convert(::Type{SysFloat}, x::UInt32) = reinterpret(Float32, x)
