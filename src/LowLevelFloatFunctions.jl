@@ -55,8 +55,6 @@ for F in (:exponent_max, :exponent_min, :exponent_bias, :exponent_field_min)
 end
 
 include("convert.jl")
-include("fields.jl")exponent(sqrt2₆₄), exponent(-sqrt2₃₂), exponent(sqrt2₁₆)
-54
-(0, 0, 0)
+include("fields.jl")
 
 end # module LowLevelFloatFunctions
