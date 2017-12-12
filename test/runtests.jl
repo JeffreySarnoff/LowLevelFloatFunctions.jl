@@ -21,7 +21,7 @@ end
 @testset "field_get" begin
     @test sign_field(-sqrt2₆₄) === 0x0000000000000001
     @test sign_field(sqrt2₃₂) === 0x00000000
-    @test sign_field(-sqrt2₁₆)) === 0x0001
+    @test sign_field(-sqrt2₁₆) === 0x0001
     @test exponent_field(-sqrt2₆₄) === 0x00000000000003ff
     @test exponent_field(sqrt2₃₂) === 0x0000007f
     @test exponent_field(-sqrt2₁₆) === 0x000f
@@ -39,7 +39,7 @@ end
 @testset "characterization" begin
     @test sign_bits(Float64) == 1
     @test exponent_bits(Float32), significand_bits(Float16)) == 8
-    @test significand_bits(Float16)) == 10
+    @test significand_bits(Float16) == 10
     @test exponent_field_max(Float64) === 0x0000000000000400
     @test exponent_max(Float64) == 1023
     @test exponent_min(Float64) == -1022
@@ -47,6 +47,8 @@ end
 end
 
 @testset "utilitiarian" begin
-    @test (bitwidth(Float64), bitwidth(Float32)) == (64, 32)
-    @test (hexstring(sqrt2₆₄), hexstring(sqrt2₃₂)) === ("3ff6a09e667f3bcd", "3fb504f3")
+    @test bitwidth(Float64) == 64
+    @test bitwidth(Float32)) == 32
+    @test hexstring(sqrt2₆₄) === "3ff6a09e667f3bcd"
+    @test hexstring(sqrt2₃₂) === "3fb504f3"
 end
