@@ -40,7 +40,7 @@ end
 
 @testset "characterization" begin
     @test sign_bits(Float64) == 1
-    @test exponent_bits(Float32), significand_bits(Float16)) == 8
+    @test exponent_bits(Float32), significand_bits(Float16) == 8
     @test significand_bits(Float16) == 10
     @test exponent_field_max(Float64) === 0x0000000000000400
     @test exponent_max(Float64) == 1023
