@@ -27,17 +27,11 @@
 @inline significand_field_mask(::Type{T}) where T<:Unsigned = ~sign_and_exponent_fields_mask(T)
 @inline exponent_and_significand_fields_mask(::Type{T}) where T<:Unsigned = ~exponent_and_significand_fields_mask(T)
 
-@inline sign_field_mask(::Type{T}) where T<:SysFloat = ~sign_field_filter(T)
-@inline sign_and_exponent_fields_mask(::Type{T}) where T<:SysFloat = ~sign_and_exponent_fields_filter(T)
-@inline exponent_field_mask(::Type{T}) where T<:SysFloat = ~exponent_field_filter(T)
-@inline significand_field_mask(::Type{T}) where T<:SysFloat = ~sign_and_exponent_fields_mask(T)
-@inline exponent_and_significand_fields_mask(::Type{T}) where T<:SysFloat = ~exponent_and_significand_fields_mask(T)
-
-@inline sign_field_mask_lsbs(::Type{T}) where T<:SysFloat = sign_field_mask(T) >> sign_field_offset(T)
-@inline exponent_field_mask_lsbs(::Type{T}) where T<:SysFloat = exponent_field_mask(T) >> exponent_field_offset(T)
-@inline significand_field_mask_lsbs(::Type{T}) where T<:SysFloat = significand_fields_mask(T) >> significand_field_offset(T)
-@inline sign_and_exponent_fields_mask_lsbs(::Type{T}) where T<:SysFloat = sign_and_exponent_fields_mask(T) >> exponent_field_offset(T)
-@inline exponent_and_significand_fields_mask_lsbs(::Type{T}) where T<:SysFloat = exponent_and_significand_fields_mask(T) >> significand_field_offset(T)
+@inline sign_field_mask_lsbs(::Type{T}) where T<:Unsigned = sign_field_mask(T) >> sign_field_offset(T)
+@inline exponent_field_mask_lsbs(::Type{T}) where T<:Unsigned = exponent_field_mask(T) >> exponent_field_offset(T)
+@inline significand_field_mask_lsbs(::Type{T}) where T<:Unsigned = significand_fields_mask(T) >> significand_field_offset(T)
+@inline sign_and_exponent_fields_mask_lsbs(::Type{T}) where T<:Unsigned = sign_and_exponent_fields_mask(T) >> exponent_field_offset(T)
+@inline exponent_and_significand_fields_mask_lsbs(::Type{T}) where T<:Unsigned = exponent_and_significand_fields_mask(T) >> significand_field_offset(T)
 
 # isolate the field[s] from other bits and yield the field value, as Unsigned bits in place
 
@@ -55,12 +49,6 @@
 @inline clear_significand_field(x::T) where T<:Unsigned = x & significand_field_filter(T)
 @inline clear_sign_and_exponent_fields(x::T) where T<:Unsigned = x & sign_and_exponent_fields_filter(T)
 @inline clear_exponent_and_significand_fields(x::T) where T<:Unsigned = x & exponent_and_significand_fields_filter(T)
-
-for F in (:clear_sign_field, :clear_exponent_field, :clear_significand_field, :clear_sign_and_exponent_fields, :clear_exponent_and_significand_fields)
-  @eval begin
-    @inline $F(x::T) where T<:SysFloat = $F(convert(Unsigned,x))
-  end
-end
 
 # fetch the field[s] into the low order bits of an Unsigned
 
