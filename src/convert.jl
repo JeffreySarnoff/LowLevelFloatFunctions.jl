@@ -1,4 +1,3 @@
-
 # convert used as a generalized reinterpret
 
 @inline Base.convert(::Type{Unsigned}, ::Type{Float16}) = UInt16
