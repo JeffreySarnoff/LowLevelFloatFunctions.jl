@@ -42,7 +42,7 @@ end
 
 @inline exponent_bias(::Type{T}) where T<:SysFloat = exponent_max(T)
 
-@inline exponent_field_max(::Type{T}) where T<:SysFloat = exponent_max(T) + one(convert(Signed, T))
+@inline exponent_field_max(::Type{T}) where T<:SysFloat = exponent_max(T) + one(convert(Unsigned, T))
 
 # extend coverage to Unsigneds for field processing functions
 
