@@ -4,11 +4,20 @@ export bitwidth, signbit, sign, precision, exponent, significand,
        sign_bits, exponent_bits, significand_bits,
        exponent_max, exponent_min, exponent_field_max, exponent_bias,
        sign_field, exponent_field, signficand_field,
-       sign_and_exponent_fields, exponent_and_significand_fields
+       sign_and_exponent_fields, exponent_and_significand_fields,
+       hexstring
 
 import Base.Math: precision, significand_bits, exponent_bits
 
 const SysFloat = Union{Float64, Float32, Float16}
+
+"""
+    hexstring(x)
+
+like bitstring(x), with hexadecimal digits
+"""
+hexstring(x::T) where T<:SysFloat = hex(convert(Unsigned, x), sizeof(x) * 2)
+hexstring(x::T) where T<:Union{Signed, Unsigned} = hex(x)
 
 # extend coverage to Unsigneds for field processing functions
 
