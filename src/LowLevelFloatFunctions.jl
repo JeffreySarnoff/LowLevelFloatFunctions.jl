@@ -43,9 +43,10 @@ end
 @inline exponent_min(::Type{T}) where T<:SysFloat = 1 - exponent_max(T)
 
 @inline exponent_bias(::Type{T}) where T<:SysFloat = exponent_max(T)
-@inline exponent_bias(::Type{UInt64}) = convert(UInt64, exponent_max(T))
-@inline exponent_bias(::Type{UInt32}) = convert(UInt32, exponent_max(T))
-@inline exponent_bias(::Type{UInt16}) = convert(UInt16, exponent_max(T))
+
+@inline exponent_bias(::Type{UInt16})  =     15%UInt16
+@inline exponent_bias(::Type{UInt32})  =    127%UInt32
+@inline exponent_bias(::Type{UInt64})  =   1023%UInt64
 
 @inline exponent_field_max(::Type{T}) where T<:SysFloat = exponent_max(T) + one(convert(Unsigned, T))
 
