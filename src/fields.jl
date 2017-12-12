@@ -1,32 +1,30 @@
 # field[s] offset (shift by)
 
-@inline sign_field_offset(::Type{T}) where T<:SysFloats = bitwidth(T) - one(convert(Signed, T))
-@inline exponent_field_offset(::Type{T}) where T<:SysFloats = sign_field_offset(T) - exponent_bits(T)
-@inline significand_field_offset(::Type{T}) where T<:SysFloats = zero(convert(Signed, T))
-@inline sign_and_exponent_fields_offset(::Type{T}) where T<:SysFloats = exponent_field_offset(T)
-@inline exponent_and_significand_fields_offset(::Type{T}) where T<:SysFloats = significand_field_offset(T)
+@inline sign_field_offset(::Type{T}) where T<:SysFloat = bitwidth(T) - one(convert(Signed, T))
+@inline exponent_field_offset(::Type{T}) where T<:SysFloat = sign_field_offset(T) - exponent_bits(T)
+@inline significand_field_offset(::Type{T}) where T<:SysFloat = zero(convert(Signed, T))
+@inline sign_and_exponent_fields_offset(::Type{T}) where T<:SysFloat = exponent_field_offset(T)
+@inline exponent_and_significand_fields_offset(::Type{T}) where T<:SysFloat = significand_field_offset(T)
 
 # field[s] filter and mask
 
-@inline sign_field_filter(::Type{T}) where T<:SysFloats = ~(zero(convert(Unsigned,T))) >>> 1
-@inline sign_and_exponent_fields_filter(::Type{T}) where T<:SysFloats = ~(zero(convert(Unsigned,T))) >>> (exponent_bits(T) + 1)
-@inline exponent_field_filter(::Type{T}) where T<:SysFloats = sign_and_exponent_fields_filter(T) | sign_field_mask(T)
-@inline significand_field_filter(::Type{T}) where T<:SysFloats = ~sign_and_exponent_fields_filter(T)
-@inline exponent_and_significand_fields_filter(::Type{T}) where T<:SysFloats = ~(sign_field_filter(T))
+@inline sign_field_filter(::Type{T}) where T<:SysFloat = ~(zero(convert(Unsigned,T))) >>> 1
+@inline sign_and_exponent_fields_filter(::Type{T}) where T<:SysFloat = ~(zero(convert(Unsigned,T))) >>> (exponent_bits(T) + 1)
+@inline exponent_field_filter(::Type{T}) where T<:SysFloat = sign_and_exponent_fields_filter(T) | sign_field_mask(T)
+@inline significand_field_filter(::Type{T}) where T<:SysFloat = ~sign_and_exponent_fields_filter(T)
+@inline exponent_and_significand_fields_filter(::Type{T}) where T<:SysFloat = ~(sign_field_filter(T))
 
-@inline sign_field_mask(::Type{T}) where T<:SysFloats = ~sign_field_filter(T)
-@inline sign_and_exponent_fields_mask(::Type{T}) where T<:SysFloats = ~sign_and_exponent_fields_filter(T)
-@inline exponent_field_mask(::Type{T}) where T<:SysFloats = ~exponent_field_filter(T)
-@inline significand_field_mask(::Type{T}) where T<:SysFloats = ~sign_and_exponent_fields_mask(T)
-@inline exponent_and_significand_fields_mask(::Type{T}) where T<:SysFloats = ~exponent_and_significand_fields_mask(T)
+@inline sign_field_mask(::Type{T}) where T<:SysFloat = ~sign_field_filter(T)
+@inline sign_and_exponent_fields_mask(::Type{T}) where T<:SysFloat = ~sign_and_exponent_fields_filter(T)
+@inline exponent_field_mask(::Type{T}) where T<:SysFloat = ~exponent_field_filter(T)
+@inline significand_field_mask(::Type{T}) where T<:SysFloat = ~sign_and_exponent_fields_mask(T)
+@inline exponent_and_significand_fields_mask(::Type{T}) where T<:SysFloat = ~exponent_and_significand_fields_mask(T)
 
-@inline sign_field_mask_lsbs(::Type{T}) where T<:SysFloats = sign_field_mask(T) >> sign_field_offset(T)
-@inline sign_and_exponent_fiel@inline exponent_field_max(::Type{T}) where T<:SysFloats = exponent_max(T) + one(convert(Signed, T))
-
-ds_mask_lsbs(::Type{T}) where T<:SysFloats = sign_and_exponent_fields_mask(T) >> exponent_field_offset(T)
-@inline exponent_field_mask_lsbs(::Type{T}) where T<:SysFloats = exponent_field_mask(T) >> exponent_field_offset(T)
-@inline significand_field_mask_lsbs(::Type{T}) where T<:SysFloats = significand_fields_mask(T) >> significand_field_offset(T)
-@inline exponent_and_significand_fields_mask_lsbs(::Type{T}) where T<:SysFloats = exponent_and_significand_fields_mask(T) >> significand_field_offset(T)
+@inline sign_field_mask_lsbs(::Type{T}) where T<:SysFloat = sign_field_mask(T) >> sign_field_offset(T)
+@inline exponent_field_mask_lsbs(::Type{T}) where T<:SysFloat = exponent_field_mask(T) >> exponent_field_offset(T)
+@inline significand_field_mask_lsbs(::Type{T}) where T<:SysFloat = significand_fields_mask(T) >> significand_field_offset(T)
+@inline sign_and_exponent_fields_mask_lsbs(::Type{T}) where T<:SysFloat = sign_and_exponent_fields_mask(T) >> exponent_field_offset(T)
+@inline exponent_and_significand_fields_mask_lsbs(::Type{T}) where T<:SysFloat = exponent_and_significand_fields_mask(T) >> significand_field_offset(T)
 
 # isolate the field[s] from other bits and yield the field value, as Unsigned bits in place
 
@@ -48,9 +46,7 @@ ds_mask_lsbs(::Type{T}) where T<:SysFloats = sign_and_exponent_fields_mask(T) >>
 # fetch the field[s] into the low order bits of an Unsigned
 
 @inline get_sign_field(x::T) where T<:Unsigned = sign_field(x) >> sign_field_offset(T)
-@inline get_exponent_field(x::T@inline exponent_field_max(::Type{T}) where T<:SysFloats = exponent_max(T) + one(convert(Signed, T))
-
-) where T<:Unsigned = exponent_field(x) >> exponent_field_offset(T)
+@inline get_exponent_field(x::T) where T<:Unsigned = exponent_field(x) >> exponent_field_offset(T)
 @inline get_significand_field(x::T) where T<:Unsigned = significand_field(x) >> significand_field_offset(T)
 @inline get_sign_and_exponent_fields(x::T) where T<:Unsigned = sign_and_exponent_fields(x) >> exponent_field_offset(T)
 @inline get_exponent_and_significand_fields(x::T) where T<:Unsigned = exponent_and_significand_fields(x) >> significand_field_offset(T)
@@ -62,7 +58,6 @@ ds_mask_lsbs(::Type{T}) where T<:SysFloats = sign_and_exponent_fields_mask(T) >>
 @inline set_significand_field(x::T) where T<:Unsigned = (x & significand_field_mask_lsbs(T)) << significand_field_offset(T)
 @inline set_sign_and_exponent_fields(x::T) where T<:Unsigned = (x & sign_and_exponent_fields_mask_lsbs(T)) << exponent_field_offset(T)
 @inline set_exponent_and_significand_fields(x::T) where T<:Unsigned = (x & exponent_and_significand_fields_mask_lsbs(T)) << exponent_and_significand_fields_offset(T)
-@inline exponent_field_max(::Type{T}) where T<:SysFloats = exponent_max(T) + one(convert(Signed, T))
 
 # set field[s]: set_sign_field(1.0, 1%UInt64) == -1.0
 
