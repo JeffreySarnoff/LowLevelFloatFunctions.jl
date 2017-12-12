@@ -62,10 +62,12 @@ julia> sign(-sqrt17₆₄), sign(sqrt17₃₂), sign(-sqrt17₁₆)
 julia> significand_field(sqrt2₆₄), significand_field(sqrt2₃₂), significand_field(sqrt2₁₆)
 (0x0006a09e667f3bcd, 0x003504f3, 0x01a8)
 
-julia> biased_exponent_field(-sqrt17₆₄), biased_exponent_field(sqrt17₃₂), biased_exponent_field(-sqrt17₁₆)
+julia> biased_exponent_field(-sqrt17₆₄), biased_exponent_field(sqrt17₃₂),    
+       biased_exponent_field(-sqrt17₁₆)
 (0x0000000000000401, 0x00000081, 0x0011)
 
-julia> unbiased_exponent_field(-sqrt17₆₄), unbiased_exponent_field(sqrt17₃₂), unbiased_exponent_field(-sqrt17₁₆)
+julia> unbiased_exponent_field(-sqrt17₆₄), unbiased_exponent_field(sqrt17₃₂),    
+       unbiased_exponent_field(-sqrt17₁₆)
 (0x0000000000000002, 0x00000002, 0x0002)
 
 julia> sign_field(-sqrt17₆₄), sign_field(sqrt17₃₂), sign_field(-sqrt17₁₆)
