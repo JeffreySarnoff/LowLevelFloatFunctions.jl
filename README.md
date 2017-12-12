@@ -1,9 +1,17 @@
 # LowLevelFloatFunctions.jl
-Manipulate sign, exponent, significand of Float64, Float32, Float16 values.
 
-#### Copyright &copy; 2017 by Jeffrey Sarnoff.  Released under The MIT License.
+### Manipulate sign, exponent, significand of Float64, Float32, Float16 values.
+
+### Copyright &copy; 2017 by Jeffrey Sarnoff.  Released under The MIT License.
 
 [![Travis](https://travis-ci.org/JeffreySarnoff/LowLevelFloatFunctions.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/LowLevelFloatFunctions.jl)
+-------
+
+**This is for you.** 
+
+*It would be helpful to know what use is made -- Issue 1 is to let me know.*
+
+-----
 
 ## Exports
 
