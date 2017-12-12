@@ -31,19 +31,3 @@
 @inline Base.convert(::Type{SysFloat}, ::Type{UInt16}) = Float16
 @inline Base.convert(::Type{SysFloat}, ::Type{UInt32}) = Float32
 @inline Base.convert(::Type{SysFloat}, ::Type{UInt64}) = Float64
-
-@inline Base.convert(::Type{Signed}, x::Float16) = reinterpret(Signed, x)
-@inline Base.convert(::Type{Signed}, x::Float32) = reinterpret(Signed, x)
-@inline Base.convert(::Type{Signed}, x::Float64) = reinterpret(signed, x)
-
-@inline Base.convert(::Type{SysFloat}, x::Int16) = reinterpret(Float16, x)
-@inline Base.convert(::Type{SysFloat}, x::Int32) = reinterpret(Float32, x)
-@inline Base.convert(::Type{SysFloat}, x::Int64) = reinterpret(Float64, x)
-
-@inline Base.convert(::Type{Int16}, x::Float16) = reinterpret(Int16, x)
-@inline Base.convert(::Type{Int32}, x::Float32) = reinterpret(Int32, x)
-@inline Base.convert(::Type{Int64}, x::Float64) = reinterpret(Int64, x)
-
-@inline Base.convert(::Type{Float16}, x::Int16) = reinterpret(Float16, x)
-@inline Base.convert(::Type{Float32}, x::Int32) = reinterpret(Float32, x)
-@inline Base.convert(::Type{Float64}, x::Int64) = reinterpret(Float64, x)
