@@ -1,4 +1,7 @@
 
+biased_exponent(x::T) where T<:SysFloat = Int(biased_exponent_field(x))
+unbias_exponent(x::T) where T<:SysFloat = Int(x - exponent_bias(T))
+
 # fetch the field[s] into the low order bits of an Unsigned
 
 @inline sign_field(x::T) where T<:Unsigned = isolate_sign_field(x) >> sign_field_offset(T)
