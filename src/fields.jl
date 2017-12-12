@@ -82,7 +82,7 @@ for (F,C,P) in ((:sign_field, :clear_sign_field, :prepare_sign_field),
                 (:exponent_and_significand_fields, :clear_exponent_and_significand_fields, :prepare_exponent_and_significand_fields))
   for (T,U,S) in ((:Float64, :UInt64, :Int64), (:Float32, :UInt32, :Int32), (:Float16, :UInt16, :Int32))
     @eval begin
-        @inline $F(x::$T, y::$U) = reinterpret($T, $C(c) | $P(y))
+        @inline $F(x::$T, y::$U) = reinterpret($T, $C(x) | $P(y))
         @inline $F(x::$T, y::U) where U<:Unsigned = convert($T, $C(x) | $P(convert($U, y)))
     end
   end
