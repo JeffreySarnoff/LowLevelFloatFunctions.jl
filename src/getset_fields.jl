@@ -30,8 +30,7 @@ for (F,C,P) in ((:sign_field, :clear_sign_field, :prepare_sign_field),
                 (:significand_field, :clear_significand_field, :prepare_significand_field),
                 (:sign_and_exponent_fields, :clear_sign_and_exponent_fields, :prepare_sign_and_exponent_fields),
                 (:exponent_and_significand_fields, :clear_exponent_and_significand_fields, :prepare_exponent_and_significand_fields),
-                (:biased_exponent_field, :clear_exponent_field, :prepare_exponent_field),
-                (:unbiased_exponent_field, :clear_exponent_field, :prepare_exponent_field))
+                (:biased_exponent_field, :clear_exponent_field, :prepare_exponent_field))
   for (T,U,S) in ((:Float64, :UInt64, :Int64), (:Float32, :UInt32, :Int32), (:Float16, :UInt16, :Int32))
     @eval begin
         @inline $F(x::$T, y::$U) = reinterpret($T, $C(x) | $P(y))
@@ -39,6 +38,12 @@ for (F,C,P) in ((:sign_field, :clear_sign_field, :prepare_sign_field),
     end
   end
 end
+
+@inline unbiased_exponent_field(x::U, y::U) where U<:Unsigned = clear_exponent_field(x) | prepare_unbiased_exponent_field(y)
+@inline unbiased_exponent_field(x::Float64, y::UInt64) = unbiased_exponent_field(reinterpret(UInt64, x), y)
+@inline unbiased_exponent_field(x::Float32, y::UInt32) = unbiased_exponent_field(reinterpret(UInt32, x), y)
+@inline unbiased_exponent_field(x::Float16, y::UInt16) = unbiased_exponent_field(reinterpret(UInt16, x), y)
+
 
 # clear the field[s] and yield the value, as Unsigned bits in place
 
@@ -63,4 +68,4 @@ end
 @inline prepare_sign_and_exponent_fields(x::T) where T<:Unsigned = (x & sign_and_exponent_fields_mask_lsbs(T)) << exponent_field_offset(T)
 @inline prepare_exponent_and_significand_fields(x::T) where T<:Unsigned = (x & exponent_and_significand_fields_mask_lsbs(T)) << exponent_and_significand_fields_offset(T)
 @inline prepare_biased_exponent_field(x::T) where T<:Unsigned = prepare_exponent_field(x)
-@inline prepare_unbiased_exponent_field(x::T) where T<:Unsigned = prepare_exponent_field(x)
+@inline prepare_unbiased_exponent_field(x::T) where T<:Unsigned = prepare_exponent_field(x - exponent_bias(T))
