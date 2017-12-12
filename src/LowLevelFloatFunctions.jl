@@ -10,7 +10,6 @@ export bitwidth, signbit, sign, precision, exponent, significand,
 import Base.Math: precision, significand_bits, exponent_bits
 
 const SysFloat = Union{Float64, Float32, Float16}
-const SysUnsigned = Union{UInt64, UInt32, UInt16}
 
 # extend coverage to Unsigneds for field processing functions
 
@@ -22,7 +21,7 @@ for F in (:precision, :significand_bits, :exponent_bits)
     end
 end
 
-sign_bits(::Type{T}) where T<:Union(SysFloat, SysUnsigned} = 1
+sign_bits(::Type{T}) where T<:Union{SysFloat, UInt64, UInt32, UInt16} = 1
 
 @inline bitwidth(::Type{T}) where T = sizeof(T) * 8
 
@@ -43,10 +42,11 @@ for F in (:exponent_max, :exponent_min, :exponent_bias, :exponent_field_min)
         @eval begin
             @inline $F(::Type{$U}) = $F($T)
         end
-    end
+    endU
 end
 
 include("convert.jl")
 include("fields.jl")
 
 end # module LowLevelFloatFunctions
+U
