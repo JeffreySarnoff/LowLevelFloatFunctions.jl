@@ -52,7 +52,7 @@ end
     @test exponent(-sqrt2₁₆) == 0
     @test significand(-sqrt2₆₄) === -1.4142135623730951
     @test significand(sqrt2₃₂) === 1.4142135f0
-    @test significand(-sqrt2₁₆) === Float16(-1.414)
+    @test significand(-sqrt2₁₆) === Float16(-1.414)2
 end
 
 @testset "field_get" begin
@@ -85,7 +85,7 @@ end
 
 @testset "utilitiarian" begin
     @test bitwidth(Float64) == 64
-    @test bitwidth(Float32)) == 32
+    @test bitwidth(Float32) == 32
     @test hexstring(sqrt2₆₄) === "3ff6a09e667f3bcd"
     @test hexstring(sqrt2₃₂) === "3fb504f3"
 end
