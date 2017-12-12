@@ -16,7 +16,6 @@ for F in (:precision, :significand_bits, :exponent_bits)
     for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
         @eval begin
             @inline $F(::Type{$U}) = $F($T)
-            @inline $F(x::$U) = $F($T)
         end
     end
 end
@@ -39,7 +38,6 @@ for F in (:exponent_max, :exponent_min, :exponent_bias, :exponent_field_min)
     for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
         @eval begin
             @inline $F(::Type{$U}) = $F($T)
-            @inline $F(x::$U) = $F($T)
         end
     end
 end
