@@ -1,6 +1,5 @@
 module LowLevelFloatFunctions
 
-
 export bitwidth, signbit, sign, precision, exponent, significand,
        sign_bits, exponent_bits, significand_bits,
        exponent_max, exponent_min, exponent_field_max,
@@ -43,7 +42,7 @@ for F in (:exponent_max, :exponent_min, :exponent_bias, :exponent_field_min)
         @eval begin
             @inline $F(::Type{$U}) = $F($T)
         end
-    endU
+    end
 end
 
 include("convert.jl")
