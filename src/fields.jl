@@ -15,12 +15,6 @@
 @inline significand_field_filter(::Type{T}) where T<:Unsigned = ~sign_and_exponent_fields_filter(T)
 @inline exponent_and_significand_fields_filter(::Type{T}) where T<:Unsigned = ~(sign_field_filter(T))
 
-@inline sign_field_filter(::Type{T}) where T<:SysFloat = ~(zero(convert(Unsigned,T))) >>> 1
-@inline sign_and_exponent_fields_filter(::Type{T}) where T<:SysFloat = ~(zero(convert(Unsigned,T))) >>> (exponent_bits(T) + 1)
-@inline exponent_field_filter(::Type{T}) where T<:SysFloat = sign_and_exponent_fields_filter(T) | sign_field_mask(T)
-@inline significand_field_filter(::Type{T}) where T<:SysFloat = ~sign_and_exponent_fields_filter(T)
-@inline exponent_and_significand_fields_filter(::Type{T}) where T<:SysFloat = ~(sign_field_filter(T))
-
 @inline sign_field_mask(::Type{T}) where T<:Unsigned = ~sign_field_filter(T)
 @inline sign_and_exponent_fields_mask(::Type{T}) where T<:Unsigned = ~sign_and_exponent_fields_filter(T)
 @inline exponent_field_mask(::Type{T}) where T<:Unsigned = ~exponent_field_filter(T)
@@ -79,9 +73,10 @@ for (F,C,P) in ((:sign_field, :clear_sign_field, :prepare_sign_field),
                 (:significand_field, :clear_significand_field, :prepare_significand_field),
                 (:sign_and_exponent_fields, :clear_sign_and_exponent_fields, :prepare_sign_and_exponent_fields),
                 (:exponent_and_significand_fields, :clear_exponent_and_significand_fields, :prepare_exponent_and_significand_fields))
-  for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
+  for (T,U,S) in ((:Float64, :UInt64, :Int64), (:Float32, :UInt32, :Int32), (:Float16, :UInt16, :Int32))
     @eval begin
         @inline $F(x::$T, y::$U) = convert($T, $C(convert($U, x)) | $P(y))
+        @inline $F(x::$T, y::$S) = convert($T, $C(convert($U, x)) | $P(reinterpret($U, y))
     end
   end
 end
