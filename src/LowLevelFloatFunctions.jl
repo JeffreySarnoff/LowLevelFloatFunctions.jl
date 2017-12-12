@@ -1,9 +1,10 @@
 module LowLevelFloatFunctions
 
 export bitwidth, signbit, 
-       sign, precision, exponent, significand,
+       sign, precision, exponent, biased_exponent, significand,
        sign_bits, exponent_bits, significand_bits,
-       exponent_max, exponent_min, exponent_field_max, exponent_bias,
+       exponent_max, exponent_min, exponent_field_max,
+       exponent_bias, unbias_exponent,
        sign_field, exponent_field, significand_field,
        unbiased_exponent_field, biased_exponent_field,
        sign_and_exponent_fields, exponent_and_significand_fields,
@@ -21,6 +22,9 @@ like bitstring(x), with hexadecimal digits
 hexstring(x::T) where T<:SysFloat = hex(convert(Unsigned, x), sizeof(x) * 2)
 hexstring(x::T) where T<:Union{Signed, Unsigned} = hex(x)
 
+biased_exponent(x::T) where T<:SysFloat = Int(biased_exponent_field(x))
+unbias_exponent(x::T) where T<:SysFloat = Int(x - exponent_bias(T))
+
 # extend coverage to Unsigneds for field processing functions
 
 for F in (:precision, :significand_bits, :exponent_bits)
@@ -30,6 +34,9 @@ for F in (:precision, :significand_bits, :exponent_bits)
         end
     end
 end
+
+biased_exponent(x::T) where T<:SysFloat = Int(biased_exponent_field(x))
+unbias_exponent(x::T) where T<:SysFloat = Int(x - exponent_bias(T))
 
 @inline sign_bits(::Type{T}) where T<:SysFloat = 1
 @inline sign_bits(::Type{T}) where T<:Union{UInt64, UInt32, UInt16} = 1
@@ -42,7 +49,8 @@ end
 
 @inline exponent_min(::Type{T}) where T<:SysFloat = 1 - exponent_max(T)
 
-@inline exponent_bias(::Type{UInt16})  =     15%UInt16
+@inline exponent_bias(::Type{UInt16})  =     15%UInt16biased_exponent(x<:T) where T<:SysFloat = Int(biased_exponent_field(x))
+
 @inline exponent_bias(::Type{UInt32})  =    127%UInt32
 @inline exponent_bias(::Type{UInt64})  =   1023%UInt64
 @inline exponent_bias(::Type{Float16}) =     15%Int16
