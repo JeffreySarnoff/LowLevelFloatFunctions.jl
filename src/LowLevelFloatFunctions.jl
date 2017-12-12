@@ -21,7 +21,8 @@ for F in (:precision, :significand_bits, :exponent_bits)
     end
 end
 
-sign_bits(::Type{T}) where T<:Union{SysFloat, UInt64, UInt32, UInt16} = 1
+@inline sign_bits(::Type{T}) where T<:SysFloat = 1
+@inline sign_bits(::Type{T}) where T<:Union{UInt64, UInt32, UInt16} = 1
 
 @inline bitwidth(::Type{T}) where T = sizeof(T) * 8
 
