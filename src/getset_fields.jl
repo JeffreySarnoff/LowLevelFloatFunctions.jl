@@ -40,9 +40,9 @@ for (F,C,P) in ((:sign_field, :clear_sign_field, :prepare_sign_field),
 end
 
 @inline unbiased_exponent_field(x::U, y::U) where U<:Unsigned = clear_exponent_field(x) | prepare_unbiased_exponent_field(y)
-@inline unbiased_exponent_field(x::Float64, y::UInt64) = unbiased_exponent_field(reinterpret(UInt64, x), y)
-@inline unbiased_exponent_field(x::Float32, y::UInt32) = unbiased_exponent_field(reinterpret(UInt32, x), y)
-@inline unbiased_exponent_field(x::Float16, y::UInt16) = unbiased_exponent_field(reinterpret(UInt16, x), y)
+@inline unbiased_exponent_field(x::Float64, y::UInt64) = reinterpret(Float64, unbiased_exponent_field(reinterpret(UInt64, x), y))
+@inline unbiased_exponent_field(x::Float32, y::UInt32) = reinterpret(Float32, unbiased_exponent_field(reinterpret(UInt32, x), y))
+@inline unbiased_exponent_field(x::Float16, y::UInt16) = reinterpret(Float16, unbiased_exponent_field(reinterpret(UInt16, x), y))
 
 
 # clear the field[s] and yield the value, as Unsigned bits in place
