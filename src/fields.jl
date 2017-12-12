@@ -28,12 +28,12 @@
 
 # isolate the field[s] from other bits and yield the field value, as Unsigned bits in place
 
-@inline isolate_sign_field(x::T) where T<:SysFloat = convert(Unsigned, x) & sign_field_mask(T)
-@inline isolate_exponent_field(x::T) where T<:SysFloat = convert(Unsigned, x) & exponent_field_mask(T)
-@inline isolate_significand_field(x::T) where T<:SysFloat = convert(Unsigned, x) & significand_field_mask(T)
-@inline isolate_sign_and_exponent_fields(x::T) where T<:SysFloat = convert(Unsigned, x) & sign_and_exponent_field_mask(T)
-@inline isolate_exponent_and_significand_fields(x::T) where T<:SysFloat = convert(Unsigned, x) & sign_field_filter(T)
-@inline isolate_sign_and_significand_fields(x::T) where T<:SysFloat = convert(Unsigned, x) & exponent_field_mask(T)
+@inline isolate_sign_field(x::T) where T<:Unsigned = x & sign_field_mask(T)
+@inline isolate_exponent_field(x::T) where T<:Unsigned = x & exponent_field_mask(T)
+@inline isolate_significand_field(x::T) where T<:Unsigned = x & significand_field_mask(T)
+@inline isolate_sign_and_exponent_fields(x::T) where T<:Unsigned = x & sign_and_exponent_field_mask(T)
+@inline isolate_exponent_and_significand_fields(x::T) where T<:Unsigned = x & sign_field_filter(T)
+@inline isolate_sign_and_significand_fields(x::T) where T<:Unsigned = x & exponent_field_mask(T)
 
 # clear the field[s] and yield the value, as Unsigned bits in place
 
