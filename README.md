@@ -48,17 +48,19 @@ julia> sqrt2₁₆, sqrt17₁₆ = sqrt(Float16(2)), sqrt(Float16(17))
 julia> significand(-sqrt17₆₄),
        significand( sqrt17₃₂),
        significand(-sqrt17₁₆)
-(-1.0307764064044151, 1.0307764f0, Float16(-1.031))
+   
+- (-1.0307764064044151, 1.0307764f0, Float16(-1.031))
 
 julia> exponent(-sqrt17₆₄),
        exponent( sqrt17₃₂),
        exponent(-sqrt17₁₆)
-(2, 2, 2)
+
+- (2, 2, 2)
 
 julia> biased_exponent(-sqrt17₆₄),    
        biased_exponent( sqrt17₃₂),    
        biased_exponent(-sqrt17₁₆)
-(1025, 129, 17)
+- (1025, 129, 17)
 
 julia> sign(-sqrt17₆₄),
        sign( sqrt17₃₂), 
