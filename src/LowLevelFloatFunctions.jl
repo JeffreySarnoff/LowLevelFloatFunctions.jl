@@ -10,7 +10,7 @@ import Base.Math: precision, significand_bits, exponent_bits
 
 const SysFloat = Union{Float64, Float32, Float16}
 
-for F in (:precision, significand_bits, exponent_bits)
+for F in (:precision, :significand_bits, :exponent_bits)
     for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
         @eval begin
             @inline $F(::Type{$U}) = $F($T)
