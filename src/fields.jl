@@ -28,12 +28,12 @@
 
 # isolate the field[s] from other bits and yield the field value, as Unsigned bits in place
 
-@inline sign_field(x::T) where T<:SysFloat = convert(Unsigned, x) & sign_field_mask(T)
-@inline exponent_field(x::T) where T<:SysFloat = convert(Unsigned, x) & exponent_field_mask(T)
-@inline significand_field(x::T) where T<:SysFloat = convert(Unsigned, x) & significand_field_mask(T)
-@inline sign_and_exponent_fields(x::T) where T<:SysFloat = convert(Unsigned, x) & sign_and_exponent_field_mask(T)
-@inline exponent_and_significand_fields(x::T) where T<:SysFloat = convert(Unsigned, x) & sign_field_filter(T)
-@inline sign_and_significand_fields(x::T) where T<:SysFloat = convert(Unsigned, x) & exponent_field_mask(T)
+@inline isolate_sign_field(x::T) where T<:SysFloat = convert(Unsigned, x) & sign_field_mask(T)
+@inline isolate_exponent_field(x::T) where T<:SysFloat = convert(Unsigned, x) & exponent_field_mask(T)
+@inline isolate_significand_field(x::T) where T<:SysFloat = convert(Unsigned, x) & significand_field_mask(T)
+@inline isolate_sign_and_exponent_fields(x::T) where T<:SysFloat = convert(Unsigned, x) & sign_and_exponent_field_mask(T)
+@inline isolate_exponent_and_significand_fields(x::T) where T<:SysFloat = convert(Unsigned, x) & sign_field_filter(T)
+@inline isolate_sign_and_significand_fields(x::T) where T<:SysFloat = convert(Unsigned, x) & exponent_field_mask(T)
 
 # clear the field[s] and yield the value, as Unsigned bits in place
 
@@ -45,29 +45,36 @@
 
 # fetch the field[s] into the low order bits of an Unsigned
 
-@inline get_sign_field(x::T) where T<:Unsigned = sign_field(x) >> sign_field_offset(T)
-@inline get_exponent_field(x::T) where T<:Unsigned = exponent_field(x) >> exponent_field_offset(T)
-@inline get_significand_field(x::T) where T<:Unsigned = significand_field(x) >> significand_field_offset(T)
-@inline get_sign_and_exponent_fields(x::T) where T<:Unsigned = sign_and_exponent_fields(x) >> exponent_field_offset(T)
-@inline get_exponent_and_significand_fields(x::T) where T<:Unsigned = exponent_and_significand_fields(x) >> significand_field_offset(T)
+@inline sign_field(x::T) where T<:Unsigned = isolate_sign_field(x) >> sign_field_offset(T)
+@inline exponent_field(x::T) where T<:Unsigned = isolate_exponent_field(x) >> exponent_field_offset(T)
+@inline significand_field(x::T) where T<:Unsigned = isolate_significand_field(x) >> significand_field_offset(T)
+@inline sign_and_exponent_fields(x::T) where T<:Unsigned = isolate_sign_and_exponent_fields(x) >> exponent_field_offset(T)
+@inline exponent_and_significand_fields(x::T) where T<:Unsigned = isolate_exponent_and_significand_fields(x) >> significand_field_offset(T)
+
+for F in (:sign_field, :exponent_field, :significand_field, :sign_and_exponent_fields, :exponent_and_significand_fields)
+  @eval begn
+    @inline $F(x::T) where T<:SysFloat = $F(convert(Unsigned,x))
+  end
+end
 
 # prepare Unsigned low order bits to occupy field[s]
 
-@inline set_sign_field(x::T) where T<:Unsigned = (x & sign_field_mask_lsbs(T)) << sign_field_offset(T)
-@inline set_exponent_field(x::T) where T<:Unsigned = (x & exponent_field_mask_lsbs(T)) << exponent_field_offset(T)
-@inline set_significand_field(x::T) where T<:Unsigned = (x & significand_field_mask_lsbs(T)) << significand_field_offset(T)
-@inline set_sign_and_exponent_fields(x::T) where T<:Unsigned = (x & sign_and_exponent_fields_mask_lsbs(T)) << exponent_field_offset(T)
-@inline set_exponent_and_significand_fields(x::T) where T<:Unsigned = (x & exponent_and_significand_fields_mask_lsbs(T)) << exponent_and_significand_fields_offset(T)
+@inline prepare_sign_field(x::T) where T<:Unsigned = (x & sign_field_mask_lsbs(T)) << sign_field_offset(T)
+@inline prepare_exponent_field(x::T) where T<:Unsigned = (x & exponent_field_mask_lsbs(T)) << exponent_field_offset(T)
+@inline prepare_significand_field(x::T) where T<:Unsigned = (x & significand_field_mask_lsbs(T)) << significand_field_offset(T)
+@inline prepare_sign_and_exponent_fields(x::T) where T<:Unsigned = (x & sign_and_exponent_fields_mask_lsbs(T)) << exponent_field_offset(T)
+@inline prepare_exponent_and_significand_fields(x::T) where T<:Unsigned = (x & exponent_and_significand_fields_mask_lsbs(T)) << exponent_and_significand_fields_offset(T)
 
-# set field[s]: set_sign_field(1.0, 1%UInt64) == -1.0
+# set field[s]: sign_field(1.0, 1%UInt64) == -1.0
 
-for (S,F) in ((:set_sign_field, :filter_sign_field), (:set_exponent_field, :filter_exponent_field),
-              (:set_significand_field, :filter_exponent_field),
-              (:set_sign_and_exponent_fields, :filter_sign_and_exponent_fields),
-              (:set_exponent_and_significand_fields, :filter_exponent_and_significand_fields))
+for (F,C,P) in ((:sign_field, :clear_sign_field, :prepare_sign_field),
+                (:exponent_field, :clear_exponent_field, :prepare_exponent_field),
+                (:significand_field, :clear_significand_field, :prepare_significand_field),
+                (:sign_and_exponent_fields, :clear_sign_and_exponent_fields, :prepare_sign_and_exponent_fields),
+                (:exponent_and_significand_fields, :clear_exponent_and_significand_fields, :prepare_exponent_and_significand_fields))
   for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
     @eval begin
-        @inline $S(x::$T, y::$U) = convert($T, $F(convert($U, x)) | $S(y))
+        @inline $F(x::$T, y::$U) = convert($T, $C(convert($U, x)) | $P(y))
     end
   end
 end
