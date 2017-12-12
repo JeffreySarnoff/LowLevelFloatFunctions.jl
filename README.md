@@ -51,7 +51,9 @@ julia> significand(-sqrt17₆₄), significand(sqrt17₃₂), significand(-sqrt1
 julia> exponent(-sqrt17₆₄), exponent(sqrt17₃₂), exponent(-sqrt17₁₆)
 (2, 2, 2)
 
-julia> biased_exponent(-sqrt17₆₄), biased_exponent(sqrt17₃₂), biased_exponent(-sqrt17₁₆)
+julia> biased_exponent(-sqrt17₆₄),    
+       biased_exponent(sqrt17₃₂),    
+       biased_exponent(-sqrt17₁₆)
 (1025, 129, 17)
 
 julia> sign(-sqrt17₆₄), sign(sqrt17₃₂), sign(-sqrt17₁₆)
@@ -59,14 +61,18 @@ julia> sign(-sqrt17₆₄), sign(sqrt17₃₂), sign(-sqrt17₁₆)
 ```
 #### field getting
 ```julia
-julia> significand_field(sqrt2₆₄), significand_field(sqrt2₃₂), significand_field(sqrt2₁₆)
+julia> significand_field(sqrt2₆₄),    
+       significand_field(sqrt2₃₂),
+       significand_field(sqrt2₁₆)
 (0x0006a09e667f3bcd, 0x003504f3, 0x01a8)
 
-julia> biased_exponent_field(-sqrt17₆₄), biased_exponent_field(sqrt17₃₂),    
+julia> biased_exponent_field(-sqrt17₆₄),
+       biased_exponent_field(sqrt17₃₂),    
        biased_exponent_field(-sqrt17₁₆)
 (0x0000000000000401, 0x00000081, 0x0011)
 
-julia> unbiased_exponent_field(-sqrt17₆₄), unbiased_exponent_field(sqrt17₃₂),    
+julia> unbiased_exponent_field(-sqrt17₆₄),
+       unbiased_exponent_field(sqrt17₃₂),    
        unbiased_exponent_field(-sqrt17₁₆)
 (0x0000000000000002, 0x00000002, 0x0002)
 
