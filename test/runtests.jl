@@ -52,7 +52,7 @@ end
     @test exponent(-sqrt2₁₆) == 0
     @test significand(-sqrt2₆₄) === -1.4142135623730951
     @test significand(sqrt2₃₂) === 1.4142135f0
-    @test significand(-sqrt2₁₆) === Float16(-1.414)2
+    @test significand(-sqrt2₁₆) === Float16(-1.414)
 end
 
 @testset "field_get" begin
