@@ -10,10 +10,13 @@ import Base.Math: precision, significand_bits, exponent_bits
 
 const SysFloat = Union{Float64, Float32, Float16}
 
+# extend coverage to Unsigneds for field processing functions
+
 for F in (:precision, :significand_bits, :exponent_bits)
     for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
         @eval begin
             @inline $F(::Type{$U}) = $F($T)
+            @inline $F(x::$U) = $F($T)
         end
     end
 end
@@ -29,6 +32,17 @@ end
 @inline exponent_bias(::Type{T}) where T<:SysFloat = exponent_max(T)
 
 @inline exponent_field_max(::Type{T}) where T<:SysFloat = exponent_max(T) + one(convert(Signed, T))
+
+# extend coverage to Unsigneds for field processing functions
+
+for F in (:exponent_max, :exponent_min, :exponent_bias, :exponent_field_min)
+    for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
+        @eval begin
+            @inline $F(::Type{$U}) = $F($T)
+            @inline $F(x::$U) = $F($T)
+        end
+    end
+end
 
 include("convert.jl")
 include("fields.jl")
