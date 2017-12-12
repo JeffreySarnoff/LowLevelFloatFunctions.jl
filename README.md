@@ -52,19 +52,26 @@ julia> sign_field(-sqrt2₆₄), sign_field(sqrt2₃₂), sign_field(-sqrt2₁�
 (0x0000000000000001, 0x00000000, 0x0001)
 julia>  exponent_field(-sqrt2₆₄), exponent_field(sqrt2₃₂), exponent_field(-sqrt2₁₆)
 (0x00000000000003ff, 0x0000007f, 0x000f)
-julia> significand(sqrt2₆₄), significand(-sqrt2₃₂), significand(sqrt2₁₆)
-(1.4142135623730951, -1.4142135f0, Float16(1.414))
+julia> significand_field(sqrt2₆₄), significand_field(sqrt2₃₂), significand_field(sqrt2₁₆)
+(0x0006a09e667f3bcd, 0x003504f3, Float16(-1.414))
+
+julia> sign_field(-sqrt2₆₄, 0%UInt64)
+
+julia> exponent_field(-sqrt2₆₄, exponent_field(-sqrt2₆₄)*2%UInt64)
+
+julia> significand_field(-sqrt2₃₂, significand_field(-sqrt2₃₂)*2%UInt64)
+
 ```
-
-sign_field, exponent_field, signficand_field,    
-sign_and_exponent_fields, exponent_and_significand_fields
-
 #### characterizion
 
-sign_bits, exponent_bits, significand_bits,    
-exponent_max, exponent_min, exponent_field_max,    
-exponent_bias
+julia> sign_bits(Float64), exponent_bits(Float32), significand_bits(Float16)
+
+julia> exponent_field_max(Float64), exponent_max(Float64), exponent_min(Float64)    
+
+julia> exponent_bias(Float32)
 
 #### utilitiarian
 
-bitwidth, hexstring
+julia> bitwidth(Float64), bitwidth(Float32)
+
+julia> hexstring(sqrt2₆₄), hexstring(sqrt2₃₂)
