@@ -25,7 +25,7 @@ end
     @test exponent_field(-sqrt2₆₄) === 0x00000000000003ff
     @test exponent_field(sqrt2₃₂) === 0x0000007f
     @test exponent_field(-sqrt2₁₆) === 0x000f
-    @test (significand_field(sqrt2₆₄) === 0x0006a09e667f3bcd
+    @test significand_field(sqrt2₆₄) === 0x0006a09e667f3bcd
     @test significand_field(sqrt2₃₂) === 0x003504f3
     @test significand_field(sqrt2₁₆) === 0x01a8
 end
