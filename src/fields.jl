@@ -76,7 +76,7 @@ for (F,C,P) in ((:sign_field, :clear_sign_field, :prepare_sign_field),
   for (T,U,S) in ((:Float64, :UInt64, :Int64), (:Float32, :UInt32, :Int32), (:Float16, :UInt16, :Int32))
     @eval begin
         @inline $F(x::$T, y::$U) = convert($T, $C(convert($U, x)) | $P(y))
-        @inline $F(x::$T, y::$S) = convert($T, $C(convert($U, x)) | $P(reinterpret($U, y))
+        @inline $F(x::$T, y::$S) = convert($T, $C(convert($U, x)) | $P(reinterpret($U, y)))
     end
   end
 end
