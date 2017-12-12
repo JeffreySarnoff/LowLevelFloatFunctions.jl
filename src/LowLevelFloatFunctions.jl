@@ -10,6 +10,14 @@ import Base.Math: precision, significand_bits, exponent_bits
 
 const SysFloat = Union{Float64, Float32, Float16}
 
+for F in (:precision, significand_bits, exponent_bits)
+    for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
+        @eval begin
+            @inline $F(::Type{$U}) = $F($T)
+        end
+    end
+end
+              
 @inline bitwidth(::Type{T}) where T = sizeof(T) * 8
 
 @inline exponent_max(::Type{Float16})  =     15
