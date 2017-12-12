@@ -49,23 +49,25 @@ julia> significand(-sqrt17₆₄),
        significand( sqrt17₃₂),
        significand(-sqrt17₁₆)
    
-- (-1.0307764064044151, 1.0307764f0, Float16(-1.031))
+* (-1.0307764064044151, 1.0307764f0, Float16(-1.031))
 
 julia> exponent(-sqrt17₆₄),
        exponent( sqrt17₃₂),
        exponent(-sqrt17₁₆)
 
-- (2, 2, 2)
+* (2, 2, 2)
 
 julia> biased_exponent(-sqrt17₆₄),    
        biased_exponent( sqrt17₃₂),    
        biased_exponent(-sqrt17₁₆)
-- (1025, 129, 17)
+
+* (1025, 129, 17)
 
 julia> sign(-sqrt17₆₄),
        sign( sqrt17₃₂), 
        sign(-sqrt17₁₆)
-(-1.0, 1.0f0, Float16(-1.0))
+
+* (-1.0, 1.0f0, Float16(-1.0))
 ```
 #### field getting
 ```julia
@@ -73,25 +75,25 @@ julia> significand_field(sqrt2₆₄),
        significand_field(sqrt2₃₂),
        significand_field(sqrt2₁₆)
 
-(0x0006a09e667f3bcd, 0x003504f3, 0x01a8)
+* (0x0006a09e667f3bcd, 0x003504f3, 0x01a8)
 
 julia> biased_exponent_field(-sqrt17₆₄),
        biased_exponent_field(sqrt17₃₂),    
        biased_exponent_field(-sqrt17₁₆)
 
-(0x0000000000000401, 0x00000081, 0x0011)
+* (0x0000000000000401, 0x00000081, 0x0011)
 
 julia> unbiased_exponent_field(-sqrt17₆₄),
        unbiased_exponent_field( sqrt17₃₂),    
        unbiased_exponent_field(-sqrt17₁₆)
 
-(0x0000000000000002, 0x00000002, 0x0002)
+* (0x0000000000000002, 0x00000002, 0x0002)
 
 julia> sign_field(-sqrt17₆₄),
        sign_field( sqrt17₃₂),
        sign_field(-sqrt17₁₆)
 
-(0x0000000000000001, 0x00000000, 0x0001)
+* (0x0000000000000001, 0x00000000, 0x0001)
 ```
 #### field setting
 ```julia
@@ -107,7 +109,7 @@ julia> significand_field(sqrt2₃₂, significand_field(sqrt2₃₂) - one(UInt3
        significand_field(sqrt2₃₂, significand_field(sqrt2₃₂)),
        significand_field(sqrt2₃₂, significand_field(sqrt2₃₂) + one(UInt32))
 
-(1.4142134f0, 1.4142135f0, 1.4142137f0)
+* (1.4142134f0, 1.4142135f0, 1.4142137f0)
 
 julia> prevfloat(sqrt2₃₂), sqrt2₃₂, nextfloat(sqrt2₃₂)
 (1.4142134f0, 1.4142135f0, 1.4142137f0)
@@ -118,13 +120,13 @@ julia> sign_bits(Float64),
        exponent_bits(Float32),
        significand_bits(Float16)
 
-(1, 8, 10)
+* (1, 8, 10)
 
 julia> exponent_min(Float64),
        exponent_max(Float64),
        exponent_field_max(Float64)
 
-(-1022, 1023, 0x0000000000000400)
+* (-1022, 1023, 0x0000000000000400)
 
 julia> exponent_bias(Float32)
 1023
