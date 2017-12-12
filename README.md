@@ -16,7 +16,7 @@ sign, exponent, significand
 sign_field, exponent_field, signficand_field,    
 sign_and_exponent_fields, exponent_and_significand_fields
 
-#### characterizion
+#### characterization
 
 sign_bits, exponent_bits, significand_bits,    
 exponent_max, exponent_min, exponent_field_max,    
@@ -53,7 +53,7 @@ julia> exponent(-sqrt2₆₄), exponent(sqrt2₃₂), exponent(-sqrt2₁₆)
 julia> significand(-sqrt2₆₄), significand(sqrt2₃₂), significand(-sqrt2₁₆)
 (-1.4142135623730951, 1.4142135f0, Float16(-1.414))
 ```
-#### field getting and setting
+#### field getting
 ```julia
 julia> sign_field(-sqrt2₆₄), sign_field(sqrt2₃₂), sign_field(-sqrt2₁₆)
 (0x0000000000000001, 0x00000000, 0x0001)
@@ -63,9 +63,11 @@ julia> exponent_field(-sqrt2₆₄), exponent_field(sqrt2₃₂), exponent_field
 
 julia> significand_field(sqrt2₆₄), significand_field(sqrt2₃₂), significand_field(sqrt2₁₆)
 (0x0006a09e667f3bcd, 0x003504f3, 0x01a8)
-
+```
+#### field setting
+```julia
 julia> sign_field(-sqrt2₆₄, 0%UInt64)
-1.4142135623730951
+1.4142135623730951​
 
 julia> exponent_field(sqrt2₆₄, exponent_field(sqrt2₆₄)+one(UInt64))
 2.8284271247461903
@@ -80,7 +82,7 @@ julia> significand_field(sqrt2₃₂, significand_field(sqrt2₃₂) - one(UInt3
 julia> prevfloat(sqrt2₃₂), sqrt2₃₂, nextfloat(sqrt2₃₂)
 (1.4142134f0, 1.4142135f0, 1.4142137f0)
 ```
-#### characterizion
+#### characterization
 ```julia
 julia> sign_bits(Float64), exponent_bits(Float32), significand_bits(Float16)
 (1, 8, 10)
