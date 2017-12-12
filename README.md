@@ -27,13 +27,14 @@ bitwidth, hexstring
 These values are used throughout.
 
 ```julia
-sqrt2₆₄ = sqrt(2.0)
-sqrt2₃₂ = sqrt(2.0f0)
-sqrt2₁₆ = sqrt(Float16(2.0))
+julia> sqrt2₆₄ = sqrt(2.0)
+1.4142135623730951
 
-max16₆₄ = Float64(realmax(Float16))
-max16₃₂ = Float32(realmax(Float16))
-max16₁₆ = realmax(Float16)
+julia> sqrt2₃₂ = sqrt(2.0f0)
+1.4142135f0
+
+julia> sqrt2₁₆ = sqrt(Float16(2.0))
+Float16(1.414)
 ```
 
 #### value extraction
@@ -50,8 +51,6 @@ julia> significand(-sqrt2₆₄), significand(sqrt2₃₂), significand(-sqrt2�
 ```
 #### field getting and setting
 ```julia
-julia> sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Float16(2.0));
-
 julia> sign_field(-sqrt2₆₄), sign_field(sqrt2₃₂), sign_field(-sqrt2₁₆)
 (0x0000000000000001, 0x00000000, 0x0001)
 
@@ -79,8 +78,6 @@ julia> prevfloat(sqrt2₃₂), sqrt2₃₂, nextfloat(sqrt2₃₂)
 ```
 #### characterizion
 ```julia
-julia> sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Float16(2.0));
-
 julia> sign_bits(Float64), exponent_bits(Float32), significand_bits(Float16)
 (1, 8, 10)
 
@@ -92,8 +89,6 @@ julia> exponent_bias(Float32)
 ```
 #### utilitiarian
 ```julia
-julia> sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Float16(2.0));
-
 julia> bitwidth(Float64), bitwidth(Float32)
 (64, 32)
 
