@@ -3,7 +3,7 @@ module LowLevelFloatFunctions
 export bitwidth, signbit, sign, precision, exponent, significand,
        sign_bits, exponent_bits, significand_bits,
        exponent_max, exponent_min, exponent_field_max, exponent_bias,
-       sign_field, exponent_field, signficand_field,
+       sign_field, exponent_field, significand_field,
        sign_and_exponent_fields, exponent_and_significand_fields,
        hexstring
 
@@ -55,6 +55,8 @@ for F in (:exponent_max, :exponent_min, :exponent_bias, :exponent_field_min)
 end
 
 include("convert.jl")
-include("fields.jl")
+include("fields.jl")exponent(sqrt2₆₄), exponent(-sqrt2₃₂), exponent(sqrt2₁₆)
+54
+(0, 0, 0)
 
 end # module LowLevelFloatFunctions
