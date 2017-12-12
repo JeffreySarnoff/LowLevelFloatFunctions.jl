@@ -2,7 +2,7 @@ module LowLevelFloatFunctions
 
 export bitwidth, signbit, sign, precision, exponent, significand,
        sign_bits, exponent_bits, significand_bits,
-       exponent_max, exponent_min, exponent_field_max,
+       exponent_max, exponent_min, exponent_field_max, exponent_bias,
        sign_field, exponent_field, signficand_field,
        sign_and_exponent_fields, exponent_and_significand_fields
 
