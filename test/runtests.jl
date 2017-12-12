@@ -6,7 +6,83 @@ else
     using Base.Test
 end
 
+precision(::Type{Float16})  =  11
+precision(::Type{Float32})  =  24
+precision(::Type{Float64})  =  53
+precision(::Type{Float128}) = 113
+precision(::Type{Float256}) = 237
+
+significand_bits(::Type{Float16})  =  10
+significand_bits(::Type{Float32})  =  23
+significand_bits(::Type{Float64})  =  52
+significand_bits(::Type{Float128}) = 112
+significand_bits(::Type{Float256}) = 236
+
+exponent_bits(::Type{Float16})  =  5
+exponent_bits(::Type{Float32})  =  8
+exponent_bits(::Type{Float64})  = 11
+exponent_bits(::Type{Float128}) = 15
+exponent_bits(::Type{Float256}) = 19
+
+exponent_max(::Type{Float16})  =     15
+exponent_max(::Type{Float32})  =    127
+exponent_max(::Type{Float64})  =   1023
+exponent_max(::Type{Float128}) =  16383
+exponent_max(::Type{Float256}) = 262143
+
+exponent_min(::Type{Float16})  =     -14
+exponent_min(::Type{Float32})  =    -126
+exponent_min(::Type{Float64})  =   -1022
+exponent_min(::Type{Float128}) =  -16382
+exponent_min(::Type{Float256}) = -262142
+
+exponent_bias(::Type{Float16})  =     15
+exponent_bias(::Type{Float32})  =    127
+exponent_bias(::Type{Float64})  =   1023
+exponent_bias(::Type{Float128}) =  16383
+exponent_bias(::Type{Float256}) = 262143
+
+exponent_field_max(::Type{Float16})  =     16
+exponent_field_max(::Type{Float32})  =    128
+exponent_field_max(::Type{Float64})  =   1024
+exponent_field_max(::Type{Float128}) =  16384
+exponent_field_max(::Type{Float256}) = 262144
+
 sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Float16(2.0));
+
+@testset "constants" begin
+    @test precision(Float16) == 11
+    @test precision(Float32) == 24
+    @test precision(Float64) == 53
+
+    @test sign_bits(Float16) == 1
+    @test sign_bits(Float32) == 1
+    @test sign_bits(Float64) == 1
+
+    @test significand_bits(Float16) == 10
+    @test significand_bits(Float32) == 23
+    @test significand_bits(Float64) == 52
+
+    @test exponent_bits(Float16) == 5
+    @test exponent_bits(Float32) == 8
+    @test exponent_bits(Float64) == 11
+
+    @test exponent_max(Float16) == 15
+    @test exponent_max(Float32) == 127
+    @test exponent_max(Float64) == 1023
+
+    @test exponent_bias(Float16) == 15
+    @test exponent_bias(Float32) == 127
+    @test exponent_bias(Float64) == 1023
+
+    @test exponent_field_max(Float16) == 16
+    @test exponent_field_max(Float32) == 128
+    @test exponent_field_max(Float64) == 1024
+
+    @test exponent_min(Float16) == -14
+    @test exponent_min(Float32) == -126
+    @test exponent_min(Float64) == -1022
+end
 
 @testset "value_extraction" begin
     @test sign(-sqrt2₆₄) === -1.0
