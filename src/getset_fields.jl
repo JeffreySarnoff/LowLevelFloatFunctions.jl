@@ -18,7 +18,9 @@ for F in (:sign_field, :exponent_field, :significand_field,
   end
 end
 
-@inline unbiased_exponent_field(x::T) where T<:SysFloat = exponent_field(x) - exponent_bias(T)
+@inline unbiased_exponent_field(x::Float64) = convert(UInt64, exponent_field(x) - exponent_bias(Float64))
+@inline unbiased_exponent_field(x::Float32) = convert(UInt32, exponent_field(x) - exponent_bias(Float32))
+@inline unbiased_exponent_field(x::Float16) = convert(UInt16, exponent_field(x) - exponent_bias(Float16))
 
 
 # set field[s]: sign_field(1.0, 1%UInt64) == -1.0
