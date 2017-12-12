@@ -1,3 +1,5 @@
+using LowLevelFloatFunctions
+
 if VERSION >= v"0.7.0-DEV"
     using Test
 else
