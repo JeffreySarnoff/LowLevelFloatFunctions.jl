@@ -11,12 +11,15 @@
 @inline unbiased_exponent_field(x::T) where T<:Unsigned = exponent_field(x) - exponent_bias(T)
 
 for F in (:sign_field, :exponent_field, :significand_field,
-          :biased_exponent_field, :unbaised_exponent_field,
+          :biased_exponent_field,
           :sign_and_exponent_fields, :exponent_and_significand_fields)
   @eval begin
     @inline $F(x::T) where T<:SysFloat = $F(convert(Unsigned,x))
   end
 end
+
+@inline unbiased_exponent_field(x::T) where T<:SysFloat = exponent_field(x) - exponent_bias(T)
+
 
 # set field[s]: sign_field(1.0, 1%UInt64) == -1.0
 
