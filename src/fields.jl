@@ -52,7 +52,7 @@
 @inline exponent_and_significand_fields(x::T) where T<:Unsigned = isolate_exponent_and_significand_fields(x) >> significand_field_offset(T)
 
 for F in (:sign_field, :exponent_field, :significand_field, :sign_and_exponent_fields, :exponent_and_significand_fields)
-  @eval begn
+  @eval begin
     @inline $F(x::T) where T<:SysFloat = $F(convert(Unsigned,x))
   end
 end
