@@ -6,7 +6,7 @@ end
 
 sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Float16(2.0));
 
-@testset "value_extraction"
+@testset "value_extraction" begin
     @test sign(-sqrt2₆₄) === -1.0
     @test sign(sqrt2₃₂) === 1.0f0
     @test sign(-sqrt2₁₆) === Float16(-1.0)
@@ -18,7 +18,7 @@ sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Float16(2
     @test significand(-sqrt2₁₆) === Float16(-1.414)
 end
 
-@testset "field_get"
+@testset "field_get" begin
     @test sign_field(-sqrt2₆₄) === 0x0000000000000001
     @test sign_field(sqrt2₃₂) === 0x00000000
     @test sign_field(-sqrt2₁₆)) === 0x0001
@@ -30,13 +30,13 @@ end
     @test significand_field(sqrt2₁₆) === 0x01a8
 end
 
-@testset "field_set"
+@testset "field_set" begin
     @test sign_field(-sqrt2₆₄, 0%UInt64) === 1.4142135623730951
     @test exponent_field(sqrt2₆₄, exponent_field(sqrt2₆₄)+one(UInt64)) === 2.8284271247461903
     @test significand_field(sqrt2₃₂, significand_field(sqrt2₃₂) - one(UInt32)) === prevfloat(sqrt2₃₂)
 end
 
-@testset "characterization"
+@testset "characterization" begin
     @test sign_bits(Float64) == 1
     @test exponent_bits(Float32), significand_bits(Float16)) == 8
     @test significand_bits(Float16)) == 10
@@ -46,7 +46,7 @@ end
     @test exponent_bias(Float32) == 1023
 end
 
-@testset "utilitiarian"
+@testset "utilitiarian" begin
     @test (bitwidth(Float64), bitwidth(Float32)) == (64, 32)
     @test (hexstring(sqrt2₆₄), hexstring(sqrt2₃₂)) === ("3ff6a09e667f3bcd", "3fb504f3")
 end
