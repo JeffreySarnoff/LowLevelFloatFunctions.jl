@@ -7,9 +7,8 @@
 @inline sign_and_exponent_fields(x::T) where T<:Unsigned = isolate_sign_and_exponent_fields(x) >> exponent_field_offset(T)
 @inline exponent_and_significand_fields(x::T) where T<:Unsigned = isolate_exponent_and_significand_fields(x) >> significand_field_offset(T)
 
-
-@inline biased_exponent_field(x::T) where T<:SysFloat = exponent_field(x)
-@inline unbiased_exponent_field(x::T) where T<:SysFloat = exponent_field(x) - convert(Unsigned, exponent_bias(T))
+@inline biased_exponent_field(x::T) where T<:Unsigned = exponent_field(x)
+@inline unbiased_exponent_field(x::T) where T<:Unsigned = exponent_field(x) - convert(Unsigned, exponent_bias(T))
 
 for F in (:sign_field, :exponent_field, :significand_field,
           :biased_exponent_field, :unbaised_exponent_field,
@@ -25,7 +24,7 @@ for (F,C,P) in ((:sign_field, :clear_sign_field, :prepare_sign_field),
                 (:exponent_field, :clear_exponent_field, :prepare_exponent_field),
                 (:significand_field, :clear_significand_field, :prepare_significand_field),
                 (:sign_and_exponent_fields, :clear_sign_and_exponent_fields, :prepare_sign_and_exponent_fields),
-                (:exponent_and_significand_fields, :clear_exponent_and_significand_fields, :prepare_exponent_and_significand_fields)
+                (:exponent_and_significand_fields, :clear_exponent_and_significand_fields, :prepare_exponent_and_significand_fields),
                 (:biased_exponent_field, :clear_exponent_field, :prepare_exponent_field),
                 (:unbiased_exponent_field, :clear_exponent_field, :prepare_exponent_field))
   for (T,U,S) in ((:Float64, :UInt64, :Int64), (:Float32, :UInt32, :Int32), (:Float16, :UInt16, :Int32))
