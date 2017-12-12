@@ -49,8 +49,7 @@ unbias_exponent(x::T) where T<:SysFloat = Int(x - exponent_bias(T))
 
 @inline exponent_min(::Type{T}) where T<:SysFloat = 1 - exponent_max(T)
 
-@inline exponent_bias(::Type{UInt16})  =     15%UInt16biased_exponent(x<:T) where T<:SysFloat = Int(biased_exponent_field(x))
-
+@inline exponent_bias(::Type{UInt16})  =     15%UInt16
 @inline exponent_bias(::Type{UInt32})  =    127%UInt32
 @inline exponent_bias(::Type{UInt64})  =   1023%UInt64
 @inline exponent_bias(::Type{Float16}) =     15%Int16
