@@ -19,7 +19,7 @@ sign_and_exponent_fields, exponent_and_significand_fields
 
 #### characterization
 
-sign_bits, exponent_bits, significand_bits,        
+sign_bits, exponent_bits, significand_bits,  #>       
 exponent_max, exponent_min, exponent_field_max,        
 exponent_bias
 
@@ -33,7 +33,7 @@ These values are used below.
 
 ```julia
 julia> sqrt2₆₄, sqrt17₆₄ = sqrt(Float64(2)), sqrt(Float64(17))
-#> (1.4142_1356_2373_0951, 4.1231_0562_5617_6610)
+#> (1.4142_1356_2373_0951, 4.1231_0562_5617_6610#> )
 
 julia> sqrt2₃₂, sqrt17₃₂ = sqrt(Float32(2)), sqrt(Float32(17))
 #> (1.4142_135f0, 4.1231_055f0)
@@ -60,7 +60,7 @@ julia> exponent(-sqrt17₆₄),
 julia> biased_exponent(-sqrt17₆₄),    
        biased_exponent( sqrt17₃₂),    
        biased_exponent(-sqrt17₁₆)
-
+ 
 #> (1025, 129, 17)
 
 julia> sign(-sqrt17₆₄),
@@ -71,7 +71,7 @@ julia> sign(-sqrt17₆₄),
 ```
 #### field getting
 ```julia
-julia> significand_field(sqrt2₆₄),    
+julia> significand_field(sqrt2₆₄),
        significand_field(sqrt2₃₂),
        significand_field(sqrt2₁₆)
 
@@ -81,7 +81,7 @@ julia> biased_exponent_field(-sqrt17₆₄),
        biased_exponent_field(sqrt17₃₂),    
        biased_exponent_field(-sqrt17₁₆)
 
-#> (0x0000000000000401, 0x00000081, 0x0011)
+#> (0x0000000000000401, 0x00000081, 0x0011) 
 
 julia> unbiased_exponent_field(-sqrt17₆₄),
        unbiased_exponent_field( sqrt17₃₂),    
@@ -127,10 +127,10 @@ julia> exponent_min(Float64),
        exponent_max(Float64),
        exponent_field_max(Float64)
 
-#> (-1022, 1023, 0x0000000000000400)
+#> #> (-1022, 1023, 0x0000000000000400)
 
 julia> exponent_bias(Float32)
-1023
+#> 1023
 ```
 #### utilitiarian
 ```julia
