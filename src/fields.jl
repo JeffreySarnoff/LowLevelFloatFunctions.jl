@@ -1,10 +1,11 @@
 # field[s] offset (shift by)
 
-@inline sign_field_offset(::Type{T}) where T<:SysFloat = bitwidth(T) - one(convert(Signed, T))
-@inline exponent_field_offset(::Type{T}) where T<:SysFloat = sign_field_offset(T) - exponent_bits(T)
-@inline significand_field_offset(::Type{T}) where T<:SysFloat = zero(convert(Signed, T))
-@inline sign_and_exponent_fields_offset(::Type{T}) where T<:SysFloat = exponent_field_offset(T)
-@inline exponent_and_significand_fields_offset(::Type{T}) where T<:SysFloat = significand_field_offset(T)
+@inline sign_field_offset(::Type{T}) where T<:Unsigned = bitwidth(T) - one(T)
+@inline exponent_field_offset(::Type{T}) where T<:Unsigned = sign_field_offset(T) - exponent_bits(T)
+@inline significand_field_offset(::Type{T}) where T<:Unsigned = zero(T)
+@inline sign_and_exponent_fields_offset(::Type{T}) where T<:Unsigned = exponent_field_offset(T)
+@inline exponent_and_significand_fields_offset(::Type{T}) where T<:Unsigned = significand_field_offset(T)
+@inline sign_and_significand_fields_offset(::Type{T}) where T<:Unsigned = significand_field_offset(T)
 
 # field[s] filter and mask
 
