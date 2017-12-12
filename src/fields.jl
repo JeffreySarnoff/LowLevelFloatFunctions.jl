@@ -29,7 +29,7 @@
 
 @inline sign_field_mask_lsbs(::Type{T}) where T<:Unsigned = sign_field_mask(T) >> sign_field_offset(T)
 @inline exponent_field_mask_lsbs(::Type{T}) where T<:Unsigned = exponent_field_mask(T) >> exponent_field_offset(T)
-@inline significand_field_mask_lsbs(::Type{T}) where T<:Unsigned = significand_fields_mask(T) >> significand_field_offset(T)
+@inline significand_field_mask_lsbs(::Type{T}) where T<:Unsigned = significand_field_mask(T) >> significand_field_offset(T)
 @inline sign_and_exponent_fields_mask_lsbs(::Type{T}) where T<:Unsigned = sign_and_exponent_fields_mask(T) >> exponent_field_offset(T)
 @inline exponent_and_significand_fields_mask_lsbs(::Type{T}) where T<:Unsigned = exponent_and_significand_fields_mask(T) >> significand_field_offset(T)
 
