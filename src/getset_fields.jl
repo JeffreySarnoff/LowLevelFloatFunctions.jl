@@ -8,7 +8,7 @@
 @inline exponent_and_significand_fields(x::T) where T<:Unsigned = isolate_exponent_and_significand_fields(x) >> significand_field_offset(T)
 
 @inline biased_exponent_field(x::T) where T<:Unsigned = exponent_field(x)
-@inline unbiased_exponent_field(x::T) where T<:Unsigned = exponent_field(x) - convert(Unsigned, exponent_bias(T))
+@inline unbiased_exponent_field(x::T) where T<:Unsigned = exponent_field(x) - exponent_bias(T)
 
 for F in (:sign_field, :exponent_field, :significand_field,
           :biased_exponent_field, :unbaised_exponent_field,
