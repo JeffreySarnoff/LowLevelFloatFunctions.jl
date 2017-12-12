@@ -55,6 +55,7 @@ for F in (:exponent_max, :exponent_min, :exponent_bias, :exponent_field_min)
 end
 
 include("convert.jl")
-include("fields.jl")
+include("def_fields.jl")
+include("getset_fields.jl")
 
 end # module LowLevelFloatFunctions
