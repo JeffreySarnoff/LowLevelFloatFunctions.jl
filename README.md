@@ -2,7 +2,7 @@
 
 ### Manipulate sign, exponent, significand of Float64, Float32, Float16 values.
 
-### Copyright &copy; 2017 by Jeffrey Sarnoff.  Released under The MIT License.
+#### Copyright &copy; 2017 by Jeffrey Sarnoff.  Released under The MIT License.
 
 [![Travis](https://travis-ci.org/JeffreySarnoff/LowLevelFloatFunctions.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/LowLevelFloatFunctions.jl)
 -------
@@ -21,19 +21,19 @@ sign, exponent, significand
 
 #### field getting and setting
 
-sign_field, exponent_field, signficand_field,    
+sign_field, exponent_field, signficand_field,     
 unbiased_exponent_field, biased_exponent_field,    
 sign_and_exponent_fields, exponent_and_significand_fields
 
 #### characterization
 
-sign_bits, exponent_bits, significand_bits,  #>       
+sign_bits, exponent_bits, significand_bits,           
 exponent_max, exponent_min, exponent_field_max,        
-exponent_bias
+exponent_bias    
 
 #### utilitiarian
 
-bitwidth, hexstring
+bitwidth, hexstring    
 
 ## Use
 
