@@ -2,6 +2,11 @@
 
 ### Manipulate sign, exponent, significand of Float64, Float32, Float16 values.
 
+> These functions allow you to alter each floating point field individually    
+(get, modify, replace) while the rest of the floating point value’s bits    
+are unmodified. As the system floats are immutable, replacing a subfield    
+actually generates a new float with the bit logic as above.
+
 #### Copyright &copy; 2017 by Jeffrey Sarnoff.  Released under The MIT License.
 
 [![Travis](https://travis-ci.org/JeffreySarnoff/LowLevelFloatFunctions.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/LowLevelFloatFunctions.jl)
