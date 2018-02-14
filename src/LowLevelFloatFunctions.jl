@@ -8,8 +8,10 @@ export bitwidth, signbit,
        sign_field, exponent_field, significand_field,
        unbiased_exponent_field, biased_exponent_field,
        sign_and_exponent_fields, exponent_and_significand_fields,
-       hexstring
+       hexstring,
+       floating, signed, unsigned
 
+import Base: signed, unsigned
 import Base.Math: precision, significand_bits, exponent_bits, exponent_bias
 
 const SysFloat = Union{Float64, Float32, Float16}
