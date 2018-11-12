@@ -30,9 +30,6 @@ for F in (:precision, :significand_bits, :exponent_bits)
     end
 end
 
-biased_exponent(x::T) where T<:SysFloat = Int(biased_exponent_field(x))
-unbias_exponent(x::T) where T<:SysFloat = Int(x - exponent_bias(T))
-
 @inline sign_bits(::Type{T}) where T<:SysFloat = 1
 @inline sign_bits(::Type{T}) where T<:Union{UInt64, UInt32, UInt16} = 1
 
@@ -55,7 +52,7 @@ unbias_exponent(x::T) where T<:SysFloat = Int(x - exponent_bias(T))
 
 # extend coverage to Unsigneds for field processing functions
 
-for F in (:exponent_max, :exponent_min, :exponent_bias, :exponent_field_min)
+for F in (:exponent_max, :exponent_min, :exponent_field_min)
     for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
         @eval begin
             @inline $F(::Type{$U}) = $F($T)
