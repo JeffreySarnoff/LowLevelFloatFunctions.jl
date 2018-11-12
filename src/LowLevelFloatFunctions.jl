@@ -16,13 +16,7 @@ import Base.Math: precision, significand_bits, exponent_bits, exponent_bias
 
 const SysFloat = Union{Float64, Float32, Float16}
 
-"""
-    hexstring(x)
 
-like bitstring(x), with hexadecimal digits
-"""
-hexstring(x::T) where T<:SysFloat = hex(convert(Unsigned, x), sizeof(x) * 2)
-hexstring(x::T) where T<:Union{Signed, Unsigned} = hex(x)
 
 biased_exponent(x::T) where T<:SysFloat = Int(biased_exponent_field(x))
 unbias_exponent(x::T) where T<:SysFloat = Int(x - exponent_bias(T))
