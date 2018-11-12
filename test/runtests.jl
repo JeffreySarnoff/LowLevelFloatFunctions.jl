@@ -1,10 +1,5 @@
 using LowLevelFloatFunctions
-
-if VERSION >= v"0.7.0-DEV"
-    using Test
-else
-    using Base.Test
-end
+using Test
 
 
 sqrt2₆₄ = sqrt(2.0); sqrt2₃₂ = sqrt(2.0f0); sqrt2₁₆ = sqrt(Float16(2.0));
@@ -86,6 +81,4 @@ end
 @testset "utilitiarian" begin
     @test bitwidth(Float64) == 64
     @test bitwidth(Float32) == 32
-    @test hexstring(sqrt2₆₄) == "3ff6a09e667f3bcd"
-    @test hexstring(sqrt2₃₂) == "3fb504f3"
 end
