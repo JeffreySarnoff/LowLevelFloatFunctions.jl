@@ -8,10 +8,13 @@ export bitwidth, signbit,
        sign_field, exponent_field, significand_field,
        unbiased_exponent_field, biased_exponent_field,
        sign_and_exponent_fields, exponent_and_significand_fields,
+       mask_sign, mask_exponent, mask_significand, 
+       mask_exponent_and_significand, mask_sign_and_significand,
        floating
 
 import Base: signed, unsigned
-import Base.Math: precision, significand_bits, exponent_bits, exponent_bias
+import Base.Math: precision, significand_bits, exponent_bits, exponent_bias,
+                  sign_mask, exponent_mask, significand_mask
 
 const SysFloat = Union{Float64, Float32, Float16}
 
@@ -59,6 +62,17 @@ for F in (:exponent_max, :exponent_min, :exponent_field_min)
         end
     end
 end
+
+for (F,G) in ((:mask_sign, :sign_mask), (:mask_exponent, :exponent_mask), (:mask_significand, :significand_mask))
+    for (T,U) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16))
+        @eval begin
+            @inline $F(x::$T) = $G($T) & reinterpret($U,x)
+            @inline $F(x::$U) = $G($T) & x
+        end
+    end
+end
+
+
 
 include("convert.jl")
 include("def_fields.jl")
