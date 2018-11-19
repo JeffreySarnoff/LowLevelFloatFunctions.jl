@@ -47,9 +47,6 @@ end
 @inline exponent_bias(::Type{UInt16})  =     15%UInt16
 @inline exponent_bias(::Type{UInt32})  =    127%UInt32
 @inline exponent_bias(::Type{UInt64})  =   1023%UInt64
-@inline exponent_bias(::Type{Float16}) =     15%Int16
-@inline exponent_bias(::Type{Float32}) =    127%Int32
-@inline exponent_bias(::Type{Float64}) =   1023%Int64
 
 @inline exponent_field_max(::Type{T}) where T<:SysFloat = exponent_max(T) + one(convert(Unsigned, T))
 
